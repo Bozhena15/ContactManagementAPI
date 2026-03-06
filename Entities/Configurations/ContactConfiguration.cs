@@ -20,5 +20,17 @@ public class ContactConfiguration : IEntityTypeConfiguration<Contact>
 
         builder.Property(c => c.CreateTime)
             .HasDefaultValueSql("GETUTCDATE()");
+
+        builder.HasIndex(c => c.Name)
+            .IsCreatedOnline();
+
+        builder.HasIndex(c => c.Email)
+            .IsCreatedOnline();
+
+        builder.HasIndex(c => c.Phone)
+            .IsCreatedOnline();
+
+        builder.HasIndex(c => new { c.Name, c.Email, c.Phone, c.CustomFields })
+            .IsCreatedOnline();
     }
 }

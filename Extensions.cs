@@ -1,4 +1,5 @@
 ﻿using ContactManagementAPI.Data;
+using ContactManagementAPI.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace ContactManagementAPI;
@@ -14,6 +15,11 @@ public static class Extensions
             .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
 
         builder.Services.AddTransient<IContactManagmentService, ContactManagmentService>();
+
+        builder.Services.AddHttpContextAccessor();
+
+        builder.Services.AddMediatR(cfg =>
+            cfg.RegisterServicesFromAssembly(typeof(Extensions).Assembly));
 
         builder.Services.AddControllers();
 
